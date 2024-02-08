@@ -49,6 +49,7 @@ const Searchbar = () => {
     <form className='flex flex-wrap gap-4 mt-12' onSubmit={handleSubmit}>
       <input
         type='text'
+        name='amazonLink'
         placeholder='Enter product link'
         className='searchbar-input'
         onChange={(e) => setSearchQuery(e.target.value)}
