@@ -55,9 +55,8 @@ export async function scrapeAmazonProduct(productUrl: string) {
     const currency = extractCurrency($('.a-price-symbol'));
     const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, '');
 
-    const reviewsCount = $('#acrCustomerReviewLink span.acrCustomerReviewText')
-      .text()
-      .trim();
+    const reviewsCount = $('#acrCustomerReviewText').text().trim().split('ratings')[0].trim();
+    const socialProof = $('#social-proofing-faceout-title-tk_bought span').text().trim();
     const stars = $(
       '#averageCustomerReviews span.a-declarative a.a-popover-trigger.a-declarative span.a-size-base.a-color-base'
     )
@@ -88,10 +87,14 @@ export async function scrapeAmazonProduct(productUrl: string) {
       stars,
       isOutOfStock: outOfStock,
       description,
+      socialProof,
       lowestPrice: Number(currentPrice) || Number(originalPrice),
       highestPrice: Number(originalPrice) || Number(currentPrice),
       averagePrice: Number(currentPrice) || Number(originalPrice),
     };
+
+    console.log(reviewsCount);
+    
 
     return data;
   } catch (error: any) {
